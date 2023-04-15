@@ -4,6 +4,9 @@ const jwt= require("jsonwebtoken");
 const user_details = require("./models");
 const product = require("./modelProduct");
 const JWT_SECRET= "jfasuiefhSUFI2u3ubsjkdf";
+
+
+//Adding the user to database : Here
 const AddUser=async(req,res)=>{
     const {name,email,gender,address,password}=await req.body
     const encryptpass= await bcrypt.hash(password,10)
@@ -21,6 +24,7 @@ const AddUser=async(req,res)=>{
     .then((response)=>console.log(response))
 }
 
+//This API is used for Authentication of the USER
 const LoginUser=async(req,res)=>{
     const {email, password}=await req.body
     const user = await user_details.findOne({email});
@@ -39,6 +43,8 @@ const LoginUser=async(req,res)=>{
     }
     res.json({status:"error",error:"Invalid"})
 }
+
+//This API is used to enable Profile View
 const ProfileView=async (req,res)=>{
     const {token}= req.body;
     try{
@@ -51,6 +57,8 @@ const ProfileView=async (req,res)=>{
     }
     catch(error){console.log("error")}
 }
+
+//This API is used update the profile
 const ProfileUpdate = async(req,res)=>{
     const {token,name,gender,address}=req.body;
     try{
@@ -69,6 +77,8 @@ const ProfileUpdate = async(req,res)=>{
     }
     catch(error){console.log("error")}
 }
+
+//This enables Add to Cart functionality
 const AddToCart=async(req,res)=>{
     const {token,ProductId}=req.body;
     try{
@@ -85,6 +95,8 @@ const AddToCart=async(req,res)=>{
     }
     catch(error){console.log("error")}
 }
+
+//This enables Add to Wishlist functionality
 const AddToWishlist=async(req,res)=>{
     const {token,ProductId}=req.body;
     try{
@@ -99,6 +111,8 @@ const AddToWishlist=async(req,res)=>{
     }
     catch(error){console.log("error")}
 }
+
+// Enables searching in the products database
 const Search=async(req,res)=>{
     const {text}=req.body;
     try{
@@ -107,14 +121,19 @@ const Search=async(req,res)=>{
     }
     catch(error){console.log("error")}
 }
+
+//Filtering with repect to the price
 const priceSearch=async(req,res)=>{
     const {price_input}=req.body;
     try{
+        // gives all the products having price greater than the specified number
         const items = product.find({price:{$gte:price_input}})
         console.log(items)
     }
     catch(error){console.log("error")}
 }
+
+// Module exports 
 module.exports={
     AddUser,
     LoginUser,
