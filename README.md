@@ -1,4 +1,4 @@
-# GDSC-Task : Backend => e-commerce platform api's
+# GDSC-Task : Backend : E-commerce platform api's
 ### Framework chosen : Nodejs <br>
 ### Database used : MongoDb
 ## About 
