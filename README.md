@@ -13,7 +13,7 @@ git clone https://github.com/Vaani-pathariya/GDSC-Task
 - Change directory and install dependencies:
 
 ```
-cd directory
+cd GDSC-Task
 npm install
 ```
 
