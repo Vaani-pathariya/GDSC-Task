@@ -4,7 +4,10 @@ const jwt= require("jsonwebtoken");
 const adminModel=require("./modelsAdmin");
 const JWT_SECRET= "jfasuiefhSUFI2u3ubsjkdf";
 const productmodel = require("./modelProduct")
+
+// This API adds admin to the database
 const AddAdmin=async(req,res)=>{
+
     const {name,email,address,password}=await req.body
     const encryptpass= await bcrypt.hash(password,10)
     const user= new adminModel({
@@ -20,6 +23,7 @@ const AddAdmin=async(req,res)=>{
     .then((response)=>console.log(response))
 }
 
+//This api is used for Authentication of admin
 const LoginAdmin=async(req,res)=>{
     const {email, password}=await req.body
     const user = await admin_details.findOne({email});
@@ -38,6 +42,8 @@ const LoginAdmin=async(req,res)=>{
     }
     res.json({status:"error",error:"Invalid"})
 }
+
+//This Api is used for creating the Product
 const CreateProduct= async(req,res)=>{
     const {name,description,price}=await req.body
     const user= new productmodel({
@@ -61,6 +67,8 @@ const CreateProduct= async(req,res)=>{
     }).catch(err => {console.log(`unable to register`, err)})
     .then((response)=>console.log(response))
 }
+
+//This Api is used for updating the product
 const UpdateProduct=async(req,res)=>{
     const {name,description,price,_id}=req.body;
     try{
@@ -77,6 +85,8 @@ const UpdateProduct=async(req,res)=>{
     }
     catch(error){console.log("error")}
 }
+
+//This API is used for deleting the product
 const DeleteProduct=async(req,res)=>{
     const {id}=req.body;
     try{
@@ -84,6 +94,8 @@ const DeleteProduct=async(req,res)=>{
     }
     catch(error){console.log("error")};
 }
+
+//Suspends the user's account
 const AccountSuspend=async (req,res)=>{
     const {email}=req.body;
     try{
@@ -96,6 +108,8 @@ const AccountSuspend=async (req,res)=>{
     }
     catch(error){console.log(error)}
 }
+
+//Module exports here:
 module.exports={
     AddAdmin,
     LoginAdmin,
